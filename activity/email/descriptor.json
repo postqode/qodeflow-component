@@ -9,21 +9,25 @@
         {
             "name": "host",
             "type": "string",
+            "required": true,
             "description": "The SMTP server host"
         },
         {
             "name": "port",
             "type": "string",
+            "required": true,
             "description": "The SMTP server port (e.g., 587)"
         },
         {
             "name": "username",
             "type": "string",
+            "required": true,
             "description": "The SMTP server username"
         },
         {
             "name": "password",
             "type": "string",
+            "required": true,
             "description": "The SMTP server password"
         }
     ],
@@ -31,6 +35,7 @@
         {
             "name": "to",
             "type": "array",
+            "required": true,
             "description": "List of recipient email addresses"
         },
         {

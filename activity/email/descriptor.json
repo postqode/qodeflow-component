@@ -1,0 +1,64 @@
+{
+    "name": "qodeflow-email",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "Send Email",
+    "description": "Sends an email via SMTP",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/email",
+    "settings": [
+        {
+            "name": "host",
+            "type": "string",
+            "description": "The SMTP server host"
+        },
+        {
+            "name": "port",
+            "type": "string",
+            "description": "The SMTP server port (e.g., 587)"
+        },
+        {
+            "name": "username",
+            "type": "string",
+            "description": "The SMTP server username"
+        },
+        {
+            "name": "password",
+            "type": "string",
+            "description": "The SMTP server password"
+        }
+    ],
+    "input": [
+        {
+            "name": "to",
+            "type": "array",
+            "description": "List of recipient email addresses"
+        },
+        {
+            "name": "subject",
+            "type": "string",
+            "description": "The email subject"
+        },
+        {
+            "name": "body",
+            "type": "string",
+            "description": "The email body (HTML supported)"
+        },
+        {
+            "name": "files",
+            "type": "any",
+            "description": "File attachments"
+        }
+    ],
+    "output": [
+        {
+            "name": "success",
+            "type": "boolean",
+            "description": "Whether the email was sent successfully"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the email failed to send"
+        }
+    ]
+}

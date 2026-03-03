@@ -1,0 +1,80 @@
+{
+  "name": "qodeflow-email",
+  "type": "qodeflow:trigger",
+  "version": "0.1.0",
+  "title": "Receive Email",
+  "description": "Email trigger that listens for incoming emails via IMAP",
+  "homepage": "https://github.com/postqode/qodeflow-component/tree/main/trigger/email",
+  "settings": [
+    {
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "description": "The IMAP server host (e.g., imap.gmail.com)"
+    },
+    {
+      "name": "port",
+      "type": "int",
+      "required": true,
+      "description": "The IMAP server port (e.g., 993 for TLS)"
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "required": true,
+      "description": "The email account username"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "description": "The email account password or app-specific password"
+    },
+    {
+      "name": "useTLS",
+      "type": "boolean",
+      "description": "Use TLS for the IMAP connection (default: true)"
+    }
+  ],
+  "output": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "The sender email address"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "The recipient email address(es)"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "The email subject"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "The email body content"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "description": "The date the email was received"
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "folder",
+        "type": "string",
+        "description": "The mailbox folder to monitor (default: INBOX)"
+      },
+      {
+        "name": "pollInterval",
+        "type": "string",
+        "description": "The polling interval (e.g., 30s, 1m, 5m), defaults to 1m"
+      }
+    ]
+  }
+}

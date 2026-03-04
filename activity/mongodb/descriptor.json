@@ -1,0 +1,70 @@
+{
+    "name": "qodeflow-mongodb",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "MongoDB",
+    "description": "Integrates with MongoDB to perform CRUD operations",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/mongodb",
+    "settings": [
+        {
+            "name": "uri",
+            "type": "string",
+            "required": true,
+            "description": "The MongoDB connection URI"
+        },
+        {
+            "name": "dbName",
+            "type": "string",
+            "required": true,
+            "description": "The name of the database"
+        },
+        {
+            "name": "collection",
+            "type": "string",
+            "required": true,
+            "description": "The name of the collection"
+        }
+    ],
+    "input": [
+        {
+            "name": "method",
+            "type": "string",
+            "required": true,
+            "allowedValues": [
+                "GET",
+                "DELETE",
+                "INSERT",
+                "REPLACE",
+                "UPDATE"
+            ],
+            "description": "The operation to perform"
+        },
+        {
+            "name": "keyName",
+            "type": "string",
+            "description": "The name of the key field for filters"
+        },
+        {
+            "name": "keyValue",
+            "type": "string",
+            "description": "The value of the key field for filters"
+        },
+        {
+            "name": "data",
+            "type": "any",
+            "description": "The data for insert, replace, or update operations"
+        }
+    ],
+    "output": [
+        {
+            "name": "output",
+            "type": "any",
+            "description": "The result of the operation (e.g., document, ID)"
+        },
+        {
+            "name": "count",
+            "type": "integer",
+            "description": "The number of documents affected"
+        }
+    ]
+}

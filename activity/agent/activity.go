@@ -2,6 +2,7 @@ package agent
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -87,12 +88,17 @@ func newChatModel(ctx context.Context, s *Settings) (model.ToolCallingChatModel,
 	}
 
 	if s.ResponseStructure != "" {
+		var jsSchema *jsonschema.Schema
+		if err := json.Unmarshal([]byte(s.ResponseStructure), &jsSchema); err != nil {
+			return nil, fmt.Errorf("agent activity: invalid response structure JSON: %w", err)
+		}
+
 		openrouterConfig.ResponseFormat = &einoopenrouter.ChatCompletionResponseFormat{
 			Type: einoopenrouter.ChatCompletionResponseFormatTypeJSONSchema,
 			JSONSchema: &einoopenrouter.ChatCompletionResponseFormatJSONSchema{
-				Name:        "Response Format",
+				Name:        "ResponseFormat",
 				Description: "Response output structure",
-				JSONSchema:  jsonschema.Reflect(s.ResponseStructure),
+				JSONSchema:  jsSchema,
 				Strict:      true,
 			},
 		}

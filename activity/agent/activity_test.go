@@ -51,10 +51,17 @@ func TestEval_WithResponseStructure(t *testing.T) {
 
 	act := &Activity{
 		settings: &Settings{
-			Provider:          "postqode",
-			Model:             "gemini-2.0-flash",
-			SystemPrompt:      "You are a helpful assistant.",
-			ResponseStructure: `{"type":"object","properties":{"answer":{"type":"string"}}}`,
+			Provider:     "postqode",
+			Model:        "gemini-2.0-flash",
+			SystemPrompt: "You are a helpful assistant.",
+			ResponseStructure: map[string]any{
+				"type": "object",
+				"properties": map[string]any{
+					"answer": map[string]any{
+						"type": "string",
+					},
+				},
+			},
 		},
 		generateFn: func(_ context.Context, msgs []*schema.Message) (*schema.Message, error) {
 			return schema.AssistantMessage(wantResponse, nil), nil

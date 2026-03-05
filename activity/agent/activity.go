@@ -87,9 +87,14 @@ func newChatModel(ctx context.Context, s *Settings) (model.ToolCallingChatModel,
 		APIKey: s.APIKey,
 	}
 
-	if s.ResponseStructure != "" {
+	if s.ResponseStructure != nil {
+		data, err := json.Marshal(s.ResponseStructure)
+		if err != nil {
+			return nil, fmt.Errorf("agent activity: failed to marshal response structure: %w", err)
+		}
+
 		var jsSchema *jsonschema.Schema
-		if err := json.Unmarshal([]byte(s.ResponseStructure), &jsSchema); err != nil {
+		if err := json.Unmarshal(data, &jsSchema); err != nil {
 			return nil, fmt.Errorf("agent activity: invalid response structure JSON: %w", err)
 		}
 

@@ -17,8 +17,8 @@ type Settings struct {
 	APIKey string `md:"apiKey"`
 	// SystemPrompt is an optional system-level instruction for the agent
 	SystemPrompt string `md:"systemPrompt"`
-	// ResponseStructure is an optional instruction, which specifies the response structure
-	ResponseStructure string `md:"responseStructure"`
+	// ResponseStructure is an optional jsonSchema, which specifies the response structure which agent should respond with
+	ResponseStructure map[string]any `md:"responseStructure"`
 }
 
 // Input holds the runtime input for the LLM Agent activity.

@@ -88,7 +88,45 @@ func newChatModel(ctx context.Context, s *Settings) (model.ToolCallingChatModel,
 	}
 
 	if s.ResponseStructure != nil {
-		data, err := json.Marshal(s.ResponseStructure)
+		var raw any
+		switch v := s.ResponseStructure.(type) {
+		case map[string]any:
+			if mv, ok := v["mapping"].(map[string]any); ok {
+				raw = mv
+			} else if vv, ok := v["value"].(map[string]any); ok {
+				raw = vv
+			} else {
+				raw = v
+			}
+		case string:
+			// If it's a string, it might be a JSON string.
+			// We'll try to unmarshal it to see if it contains a "value" or "mapping" wrapper.
+			var m map[string]any
+			if err := json.Unmarshal([]byte(v), &m); err == nil {
+				if mv, ok := m["mapping"].(map[string]any); ok {
+					raw = mv
+				} else if vv, ok := m["value"].(map[string]any); ok {
+					raw = vv
+				} else {
+					raw = v // Use original string if no wrapper found
+				}
+			} else {
+				raw = v
+			}
+		default:
+			raw = v
+		}
+
+		var data []byte
+		var err error
+		if s, ok := raw.(string); ok {
+			data = []byte(s)
+		} else {
+			data, err = json.Marshal(raw)
+			if err != nil {
+				return nil, fmt.Errorf("agent activity: failed to marshal response structure: %w", err)
+			}
+		}
 		if err != nil {
 			return nil, fmt.Errorf("agent activity: failed to marshal response structure: %w", err)
 		}

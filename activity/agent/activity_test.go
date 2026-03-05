@@ -83,6 +83,72 @@ func TestEval_WithResponseStructure(t *testing.T) {
 	assert.Equal(t, wantResponse, output.Response)
 }
 
+func TestEval_WithMappingResponseStructure(t *testing.T) {
+	const wantResponse = `{"answer":"42"}`
+
+	act := &Activity{
+		settings: &Settings{
+			Provider:     "postqode",
+			Model:        "gemini-2.0-flash",
+			SystemPrompt: "You are a helpful assistant.",
+			ResponseStructure: map[string]any{
+				"type": "object",
+				"properties": map[string]any{
+					"answer": map[string]any{
+						"type": "string",
+					},
+				},
+			},
+		},
+		generateFn: func(_ context.Context, msgs []*schema.Message) (*schema.Message, error) {
+			return schema.AssistantMessage(wantResponse, nil), nil
+		},
+	}
+
+	tc := test.NewActivityContext(act.Metadata())
+
+	err := tc.SetInputObject(&Input{Message: "What is the answer?"})
+	assert.NoError(t, err)
+
+	done, err := act.Eval(tc)
+	assert.True(t, done)
+	assert.NoError(t, err)
+
+	output := &Output{}
+	err = tc.GetOutputObject(output)
+	assert.NoError(t, err)
+	assert.Equal(t, wantResponse, output.Response)
+}
+
+func TestEval_WithStringResponseStructure(t *testing.T) {
+	const wantResponse = `{"answer":"42"}`
+	const jsonSchema = `{"type":"object","properties":{"answer":{"type":"string"}}}`
+
+	act := &Activity{
+		settings: &Settings{
+			Provider:          "postqode",
+			Model:             "gemini-2.0-flash",
+			ResponseStructure: jsonSchema,
+		},
+		generateFn: func(_ context.Context, msgs []*schema.Message) (*schema.Message, error) {
+			return schema.AssistantMessage(wantResponse, nil), nil
+		},
+	}
+
+	tc := test.NewActivityContext(act.Metadata())
+	err := tc.SetInputObject(&Input{Message: "What is the answer?"})
+	assert.NoError(t, err)
+
+	done, err := act.Eval(tc)
+	assert.True(t, done)
+	assert.NoError(t, err)
+
+	output := &Output{}
+	err = tc.GetOutputObject(output)
+	assert.NoError(t, err)
+	assert.Equal(t, wantResponse, output.Response)
+}
+
 func TestEval_PostqodeProvider(t *testing.T) {
 	const wantResponse = "Response via postqode provider"
 

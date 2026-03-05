@@ -31,7 +31,7 @@
     },
     {
       "name": "responseStructure",
-      "type": "object",
+      "type": "any",
       "description": "Specifies the JSON schema structure the agent should respond with"
     }
   ],

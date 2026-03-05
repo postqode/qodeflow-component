@@ -69,7 +69,7 @@ func TestActivity_New_Validation(t *testing.T) {
 	assert.Contains(t, err.Error(), "host is required")
 
 	// 2. Missing port
-	settings = map[string]interface{}{
+	settings = map[string]any{
 		"host": "smtp.example.com",
 	}
 	iCtx = test.NewActivityInitContext(settings, nil)
@@ -78,7 +78,7 @@ func TestActivity_New_Validation(t *testing.T) {
 	assert.Contains(t, err.Error(), "port is required")
 
 	// 3. Missing username/password
-	settings = map[string]interface{}{
+	settings = map[string]any{
 		"host": "smtp.example.com",
 		"port": "587",
 	}
@@ -98,7 +98,7 @@ func TestActivity_Eval_Integration(t *testing.T) {
 		t.Skip("Skipping integration test: EMAIL_HOST, EMAIL_PORT, EMAIL_USERNAME, or EMAIL_PASSWORD not set")
 	}
 
-	settings := map[string]interface{}{
+	settings := map[string]any{
 		"host":     host,
 		"port":     port,
 		"username": user,
@@ -154,8 +154,8 @@ func TestActivity_Eval_WithAttachments(t *testing.T) {
 		To:      []string{"test@example.com"}, // provide the emails whom email will be sent
 		Subject: "Test Attachments",
 		Body:    "<p>please find the attachments with this mail. Thanks.</p>",
-		Files: []interface{}{
-			map[string]interface{}{
+		Files: []any{
+			map[string]any{
 				"filename": "test-file.txt",
 				"data":     "plain text content",
 				"mimeType": "text/plain",
@@ -181,7 +181,7 @@ func TestActivity_Eval_WithAttachments_Integration(t *testing.T) {
 		t.Skip("Skipping integration test: EMAIL_HOST, EMAIL_PORT, EMAIL_USERNAME, or EMAIL_PASSWORD not set")
 	}
 
-	settings := map[string]interface{}{
+	settings := map[string]any{
 		"host":     host,
 		"port":     port,
 		"username": user,
@@ -197,8 +197,8 @@ func TestActivity_Eval_WithAttachments_Integration(t *testing.T) {
 		To:      []string{"test@example.com"}, // provide the emails whom email will be sent
 		Subject: "Integration Test with Attachments",
 		Body:    "<p>please find the attachments with this mail. Thanks.</p>",
-		Files: []interface{}{
-			map[string]interface{}{
+		Files: []any{
+			map[string]any{
 				"filename": "integration-test.txt",
 				"data":     "This is an attachment from integration test.",
 				"mimeType": "text/plain",

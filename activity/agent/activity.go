@@ -48,7 +48,7 @@ func New(ctx activity.InitContext) (activity.Activity, error) {
 
 	chatModel, err := newChatModel(bgCtx, s)
 	if err != nil {
-		return nil, fmt.Errorf("agent activity: failed to initialise model for provider %q: %w", s.Provider, err)
+		return nil, err
 	}
 
 	agentCfg := &react.AgentConfig{

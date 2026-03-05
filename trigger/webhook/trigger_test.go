@@ -18,21 +18,21 @@ func TestWebhookTrigger(t *testing.T) {
 
 	// Test case 1: POST request with JSON body
 	t.Run("PostWithJSON", func(t *testing.T) {
-		fixture.SetHandler("/test", "POST", func(ctx context.Context, triggerData interface{}) (map[string]interface{}, error) {
-			return map[string]interface{}{
+		fixture.SetHandler("/test", "POST", func(ctx context.Context, triggerData any) (map[string]any, error) {
+			return map[string]any{
 				"code": 200,
-				"data": map[string]interface{}{"status": "ok"},
+				"data": map[string]any{"status": "ok"},
 			}, nil
 		})
 	})
 
 	// Test case 2: Path parameters
 	t.Run("PathParams", func(t *testing.T) {
-		fixture.SetHandler("/user/{id}", "GET", func(ctx context.Context, triggerData interface{}) (map[string]interface{}, error) {
+		fixture.SetHandler("/user/{id}", "GET", func(ctx context.Context, triggerData any) (map[string]any, error) {
 			out := triggerData.(*Output)
-			return map[string]interface{}{
+			return map[string]any{
 				"code": 200,
-				"data": map[string]interface{}{"userId": out.PathParams["id"]},
+				"data": map[string]any{"userId": out.PathParams["id"]},
 			}, nil
 		})
 	})
@@ -45,12 +45,12 @@ func TestWebhookTrigger(t *testing.T) {
 	time.Sleep(100 * time.Millisecond)
 
 	t.Run("VerifyPostWithJSON", func(t *testing.T) {
-		body := map[string]interface{}{"foo": "bar"}
+		body := map[string]any{"foo": "bar"}
 		resp, err := fixture.Post("http://localhost:8081/test", body)
 		assert.Nil(t, err)
 		assert.Equal(t, http.StatusOK, resp.StatusCode)
 
-		var result map[string]interface{}
+		var result map[string]any
 		json.NewDecoder(resp.Body).Decode(&result)
 		assert.Equal(t, "ok", result["status"])
 	})
@@ -60,7 +60,7 @@ func TestWebhookTrigger(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, http.StatusOK, resp.StatusCode)
 
-		var result map[string]interface{}
+		var result map[string]any
 		json.NewDecoder(resp.Body).Decode(&result)
 		assert.Equal(t, "123", result["userId"])
 	})
@@ -78,7 +78,7 @@ func NewWebhookFixture(t *testing.T, port int) *WebhookFixture {
 	factory := &Factory{}
 	config := &trigger.Config{
 		Id: "test-webhook",
-		Settings: map[string]interface{}{
+		Settings: map[string]any{
 			"port": port,
 		},
 	}
@@ -103,7 +103,7 @@ func (f *WebhookFixture) Stop() error {
 	return f.trig.Stop()
 }
 
-func (f *WebhookFixture) SetHandler(path, method string, handleFunc func(context.Context, interface{}) (map[string]interface{}, error)) {
+func (f *WebhookFixture) SetHandler(path, method string, handleFunc func(context.Context, any) (map[string]any, error)) {
 	f.handlers = append(f.handlers, &mockHandler{
 		path:       path,
 		method:     method,
@@ -111,7 +111,7 @@ func (f *WebhookFixture) SetHandler(path, method string, handleFunc func(context
 	})
 }
 
-func (f *WebhookFixture) Post(url string, body interface{}) (*http.Response, error) {
+func (f *WebhookFixture) Post(url string, body any) (*http.Response, error) {
 	jsonBody, _ := json.Marshal(body)
 	return http.Post(url, "application/json", bytes.NewBuffer(jsonBody))
 }
@@ -137,17 +137,17 @@ type mockHandler struct {
 	trigger.Handler
 	path       string
 	method     string
-	handleFunc func(context.Context, interface{}) (map[string]interface{}, error)
+	handleFunc func(context.Context, any) (map[string]any, error)
 }
 
-func (m *mockHandler) Settings() map[string]interface{} {
-	return map[string]interface{}{
+func (m *mockHandler) Settings() map[string]any {
+	return map[string]any{
 		"method": m.method,
 		"path":   m.path,
 	}
 }
 
-func (m *mockHandler) Handle(ctx context.Context, triggerData interface{}) (map[string]interface{}, error) {
+func (m *mockHandler) Handle(ctx context.Context, triggerData any) (map[string]any, error) {
 	if m.handleFunc != nil {
 		return m.handleFunc(ctx, triggerData)
 	}

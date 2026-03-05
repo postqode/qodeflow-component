@@ -135,7 +135,7 @@ func TestOutput_ToMap(t *testing.T) {
 }
 
 func TestOutput_FromMap(t *testing.T) {
-	m := map[string]interface{}{
+	m := map[string]any{
 		"from":    "sender@example.com",
 		"to":      "recipient@example.com",
 		"subject": "Test Subject",

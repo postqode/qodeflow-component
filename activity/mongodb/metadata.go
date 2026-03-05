@@ -16,13 +16,13 @@ type Settings struct {
 
 // Input represents the input for the MongoDB activity
 type Input struct {
-	Method   string      `md:"method"`
-	KeyName  string      `md:"keyName"`
-	KeyValue string      `md:"keyValue"`
-	Data     interface{} `md:"data"`
+	Method   string `md:"method"`
+	KeyName  string `md:"keyName"`
+	KeyValue string `md:"keyValue"`
+	Data     any    `md:"data"`
 }
 
-func (i *Input) FromMap(values map[string]interface{}) error {
+func (i *Input) FromMap(values map[string]any) error {
 	var err error
 	i.Method, err = coerce.ToString(values["method"])
 	if err != nil {
@@ -43,8 +43,8 @@ func (i *Input) FromMap(values map[string]interface{}) error {
 	return nil
 }
 
-func (i *Input) ToMap() map[string]interface{} {
-	return map[string]interface{}{
+func (i *Input) ToMap() map[string]any {
+	return map[string]any{
 		"method":   i.Method,
 		"keyName":  i.KeyName,
 		"keyValue": i.KeyValue,
@@ -54,11 +54,11 @@ func (i *Input) ToMap() map[string]interface{} {
 
 // Output represents the output for the MongoDB activity
 type Output struct {
-	Output interface{} `md:"output"`
-	Count  int64       `md:"count"`
+	Output any   `md:"output"`
+	Count  int64 `md:"count"`
 }
 
-func (o *Output) FromMap(values map[string]interface{}) error {
+func (o *Output) FromMap(values map[string]any) error {
 	var err error
 	o.Output, err = coerce.ToAny(values["output"])
 	if err != nil {
@@ -71,8 +71,8 @@ func (o *Output) FromMap(values map[string]interface{}) error {
 	return nil
 }
 
-func (o *Output) ToMap() map[string]interface{} {
-	return map[string]interface{}{
+func (o *Output) ToMap() map[string]any {
+	return map[string]any{
 		"output": o.Output,
 		"count":  o.Count,
 	}

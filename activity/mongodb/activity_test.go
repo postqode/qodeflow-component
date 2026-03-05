@@ -17,7 +17,7 @@ func TestActivity_Metadata(t *testing.T) {
 }
 
 func TestActivity_New(t *testing.T) {
-	settings := map[string]interface{}{
+	settings := map[string]any{
 		"uri":        "mongodb://localhost:27017",
 		"dbName":     "test",
 		"collection": "items",
@@ -43,7 +43,7 @@ func TestActivity_Eval_Integration(t *testing.T) {
 		collName = "test_collection"
 	}
 
-	settings := map[string]interface{}{
+	settings := map[string]any{
 		"uri":        uri,
 		"dbName":     dbName,
 		"collection": collName,
@@ -58,7 +58,7 @@ func TestActivity_Eval_Integration(t *testing.T) {
 	input := &Input{
 		Method:  "INSERT",
 		KeyName: "id",
-		Data: map[string]interface{}{
+		Data: map[string]any{
 			"id":    "123",
 			"name":  "test-item",
 			"value": 42,
@@ -90,7 +90,7 @@ func TestActivity_Eval_Integration(t *testing.T) {
 	err = tc.GetOutputObject(output)
 	assert.NoError(t, err)
 	assert.NotNil(t, output.Output)
-	retrieved := output.Output.(map[string]interface{})
+	retrieved := output.Output.(map[string]any)
 	assert.Equal(t, "test-item", retrieved["name"])
 
 	// 3. UPDATE
@@ -99,7 +99,7 @@ func TestActivity_Eval_Integration(t *testing.T) {
 		Method:   "UPDATE",
 		KeyName:  "id",
 		KeyValue: "123",
-		Data: map[string]interface{}{
+		Data: map[string]any{
 			"name": "updated-item",
 		},
 	}
@@ -119,7 +119,7 @@ func TestActivity_Eval_Integration(t *testing.T) {
 		Method:   "REPLACE",
 		KeyName:  "id",
 		KeyValue: "123",
-		Data: map[string]interface{}{
+		Data: map[string]any{
 			"id":    "123",
 			"name":  "replaced-item",
 			"value": 100,

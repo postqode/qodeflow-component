@@ -31,8 +31,8 @@ type Output struct {
 	Attachments []Attachment `md:"attachments"` // The attachment the email received
 }
 
-func (o *Output) ToMap() map[string]interface{} {
-	return map[string]interface{}{
+func (o *Output) ToMap() map[string]any {
+	return map[string]any{
 		"from":        o.From,
 		"to":          o.To,
 		"subject":     o.Subject,
@@ -42,7 +42,7 @@ func (o *Output) ToMap() map[string]interface{} {
 	}
 }
 
-func (o *Output) FromMap(values map[string]interface{}) error {
+func (o *Output) FromMap(values map[string]any) error {
 	if v, ok := values["from"]; ok {
 		o.From, _ = v.(string)
 	}

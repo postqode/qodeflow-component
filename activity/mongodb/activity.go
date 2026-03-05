@@ -73,7 +73,7 @@ func (a *MongoDbActivity) Eval(ctx activity.Context) (done bool, err error) {
 	switch strings.ToUpper(input.Method) {
 	case "GET":
 		result := coll.FindOne(context.Background(), filter)
-		val := make(map[string]interface{})
+		val := make(map[string]any)
 		err := result.Decode(&val)
 		if err != nil {
 			if err == mongo.ErrNoDocuments {

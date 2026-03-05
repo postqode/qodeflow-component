@@ -105,7 +105,7 @@ func (t *Trigger) newHTTPHandler(handler trigger.Handler) http.HandlerFunc {
 		}
 
 		if r.ContentLength > 0 {
-			var content interface{}
+			var content any
 			err := json.NewDecoder(r.Body).Decode(&content)
 			if err != nil && err != io.EOF {
 				t.logger.Errorf("Error decoding webhook body: %v", err)

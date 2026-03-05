@@ -19,15 +19,15 @@ type Output struct {
 	PathParams  map[string]string `md:"pathParams"`
 	QueryParams map[string]string `md:"queryParams"`
 	Headers     map[string]string `md:"headers"`
-	Content     interface{}       `md:"content"`
+	Content     any               `md:"content"`
 }
 
 // Reply
 type Reply struct {
-	Code int         `md:"code"`
-	Data interface{} `md:"data"`
+	Code int `md:"code"`
+	Data any `md:"data"`
 }
 
-func (r *Reply) FromMap(values map[string]interface{}) error {
+func (r *Reply) FromMap(values map[string]any) error {
 	return metadata.MapToStruct(values, r, true)
 }

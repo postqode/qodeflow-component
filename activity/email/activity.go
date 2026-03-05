@@ -121,11 +121,11 @@ func (act *Activity) Eval(ctx activity.Context) (done bool, err error) {
 		_, _ = bodyPart.Write([]byte(input.Body))
 
 		// Process files
-		var files []interface{}
-		if fArr, ok := input.Files.([]interface{}); ok {
+		var files []any
+		if fArr, ok := input.Files.([]any); ok {
 			files = fArr
 		} else {
-			files = []interface{}{input.Files}
+			files = []any{input.Files}
 		}
 
 		for i, file := range files {
@@ -142,7 +142,7 @@ func (act *Activity) Eval(ctx activity.Context) (done bool, err error) {
 				fileData = []byte(v)
 				fileName = fmt.Sprintf("attachment-%d.txt", i+1)
 				mimeType = "text/plain"
-			case map[string]interface{}:
+			case map[string]any:
 				if data, ok := v["data"]; ok {
 					fileData, _ = coerce.ToBytes(data)
 				}

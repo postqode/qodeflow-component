@@ -1,0 +1,71 @@
+{
+    "name": "qodeflow-saphana",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "SAP HANA",
+    "description": "Integrates with SAP HANA to execute SQL queries, DML statements, and stored procedures",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/saphana",
+    "settings": [
+        {
+            "name": "dsn",
+            "type": "string",
+            "description": "Full SAP HANA DSN (e.g. hdb://user:password@host:39017). If provided, host/port/user/password are ignored."
+        },
+        {
+            "name": "host",
+            "type": "string",
+            "description": "SAP HANA server hostname or IP address"
+        },
+        {
+            "name": "port",
+            "type": "integer",
+            "description": "SAP HANA server port (default: 39017)"
+        },
+        {
+            "name": "user",
+            "type": "string",
+            "description": "Database username"
+        },
+        {
+            "name": "password",
+            "type": "string",
+            "description": "Database password"
+        }
+    ],
+    "input": [
+        {
+            "name": "method",
+            "type": "string",
+            "required": true,
+            "allowedValues": [
+                "QUERY",
+                "EXEC",
+                "CALL"
+            ],
+            "description": "The operation to perform: QUERY (SELECT), EXEC (INSERT/UPDATE/DELETE), or CALL (stored procedure)"
+        },
+        {
+            "name": "query",
+            "type": "string",
+            "required": true,
+            "description": "The SQL statement or stored procedure call to execute"
+        },
+        {
+            "name": "args",
+            "type": "array",
+            "description": "Optional positional arguments to bind to the query placeholders (?)"
+        }
+    ],
+    "output": [
+        {
+            "name": "result",
+            "type": "array",
+            "description": "Rows returned by a QUERY or CALL operation, each row as a key-value map"
+        },
+        {
+            "name": "rowsAffected",
+            "type": "integer",
+            "description": "Number of rows affected (EXEC) or returned (QUERY/CALL)"
+        }
+    ]
+}

@@ -17,14 +17,14 @@ type Settings struct {
 
 // Input represents the input for the email activity
 type Input struct {
-	To      []string    `md:"to"`
-	Subject string      `md:"subject"`
-	Body    string      `md:"body"`
-	Files   interface{} `md:"files"`
+	To      []string `md:"to"`
+	Subject string   `md:"subject"`
+	Body    string   `md:"body"`
+	Files   any      `md:"files"`
 }
 
-func (i *Input) ToMap() map[string]interface{} {
-	return map[string]interface{}{
+func (i *Input) ToMap() map[string]any {
+	return map[string]any{
 		"to":      i.To,
 		"subject": i.Subject,
 		"body":    i.Body,
@@ -32,7 +32,7 @@ func (i *Input) ToMap() map[string]interface{} {
 	}
 }
 
-func (i *Input) FromMap(values map[string]interface{}) error {
+func (i *Input) FromMap(values map[string]any) error {
 	var err error
 	if values["to"] != nil {
 		toArr, err := coerce.ToArray(values["to"])
@@ -62,14 +62,14 @@ type Output struct {
 	Error   string `md:"error"`
 }
 
-func (o *Output) ToMap() map[string]interface{} {
-	return map[string]interface{}{
+func (o *Output) ToMap() map[string]any {
+	return map[string]any{
 		"success": o.Success,
 		"error":   o.Error,
 	}
 }
 
-func (o *Output) FromMap(values map[string]interface{}) error {
+func (o *Output) FromMap(values map[string]any) error {
 	var err error
 	o.Success, err = coerce.ToBool(values["success"])
 	if err != nil {

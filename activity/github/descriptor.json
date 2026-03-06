@@ -1,0 +1,73 @@
+{
+    "name": "qodeflow-github",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "GitHub Activity",
+    "description": "Perform operations on GitHub like creating issues and pull requests",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/github",
+    "settings": [
+        {
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "description": "GitHub Personal Access Token"
+        }
+    ],
+    "input": [
+        {
+            "name": "owner",
+            "type": "string",
+            "required": true,
+            "description": "The owner of the repository"
+        },
+        {
+            "name": "repo",
+            "type": "string",
+            "required": true,
+            "description": "The name of the repository"
+        },
+        {
+            "name": "method",
+            "type": "string",
+            "required": true,
+            "description": "The GitHub operation to perform (e.g., CREATE_ISSUE, LIST_ISSUES, CREATE_PULL_REQUEST, GET_REPOSITORY, LIST_REPOS, ASSIGN_ISSUE, REMOVE_ASSIGNEE, CREATE_OR_UPDATE_FILE, DELETE_FILE, ADD_COLLABORATOR, REMOVE_COLLABORATOR, GET_PULL_REQUEST, MERGE_PULL_REQUEST)",
+            "allowed": [
+                "CREATE_ISSUE",
+                "LIST_ISSUES",
+                "CREATE_PULL_REQUEST",
+                "GET_REPOSITORY",
+                "CREATE_REPOSITORY",
+                "DELETE_REPOSITORY",
+                "LIST_REPOS",
+                "ASSIGN_ISSUE",
+                "REMOVE_ASSIGNEE",
+                "CREATE_FILE",
+                "UPDATE_FILE",
+                "DELETE_FILE",
+                "ADD_COLLABORATOR",
+                "REMOVE_COLLABORATOR",
+                "GET_PULL_REQUEST",
+                "MERGE_PULL_REQUEST",
+                "CREATE_COMMENT_ON_ISSUE",
+                "UPDATE_COMMENT_ON_ISSUE"
+            ]
+        },
+        {
+            "name": "data",
+            "type": "any",
+            "description": "Data for the operation (e.g., issue title and body)"
+        }
+    ],
+    "output": [
+        {
+            "name": "result",
+            "type": "any",
+            "description": "The result of the GitHub operation"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the operation failed"
+        }
+    ]
+}

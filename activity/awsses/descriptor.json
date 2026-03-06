@@ -1,0 +1,75 @@
+{
+    "name": "qodeflow-awsses",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "AWS SES",
+    "description": "Sends an email via AWS SES",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/awsses",
+    "settings": [
+        {
+            "name": "region",
+            "type": "string",
+            "required": true,
+            "description": "The AWS region"
+        },
+        {
+            "name": "accessKeyID",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Access Key ID"
+        },
+        {
+            "name": "secretAccessKey",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Secret Access Key"
+        },
+        {
+            "name": "sessionToken",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Session Token"
+        }
+    ],
+    "input": [
+        {
+            "name": "from",
+            "type": "string",
+            "required": true,
+            "description": "The sender email address"
+        },
+        {
+            "name": "to",
+            "type": "array",
+            "required": true,
+            "description": "List of recipient email addresses"
+        },
+        {
+            "name": "subject",
+            "type": "string",
+            "description": "The email subject"
+        },
+        {
+            "name": "body",
+            "type": "string",
+            "description": "The email body (HTML supported)"
+        },
+        {
+            "name": "files",
+            "type": "any",
+            "description": "File attachments (Upcoming)"
+        }
+    ],
+    "output": [
+        {
+            "name": "success",
+            "type": "boolean",
+            "description": "Whether the email was sent successfully"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the email failed to send"
+        }
+    ]
+}

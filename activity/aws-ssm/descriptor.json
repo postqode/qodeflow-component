@@ -1,0 +1,101 @@
+{
+    "name": "qodeflow-awsssm",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "AWS SSM",
+    "description": "Performs parameter store operations in AWS SSM",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/aws-ssm",
+    "settings": [
+        {
+            "name": "region",
+            "type": "string",
+            "required": true,
+            "description": "The AWS region"
+        },
+        {
+            "name": "accessKeyID",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Access Key ID"
+        },
+        {
+            "name": "secretAccessKey",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Secret Access Key"
+        },
+        {
+            "name": "sessionToken",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Session Token"
+        }
+    ],
+    "input": [
+        {
+            "name": "method",
+            "type": "string",
+            "required": true,
+            "description": "The SSM operation to perform (GetParameter, PutParameter, DeleteParameter, GetParametersByPath, DescribeParameters)"
+        },
+        {
+            "name": "parameterName",
+            "type": "string",
+            "required": false,
+            "description": "The name of the parameter"
+        },
+        {
+            "name": "parameterValue",
+            "type": "string",
+            "required": false,
+            "description": "The value of the parameter (for PutParameter)"
+        },
+        {
+            "name": "parameterType",
+            "type": "string",
+            "required": false,
+            "description": "The type of parameter (String, StringList, SecureString)"
+        },
+        {
+            "name": "path",
+            "type": "string",
+            "required": false,
+            "description": "The path to parameters (for GetParametersByPath)"
+        },
+        {
+            "name": "recursive",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether to fetch parameters recursively (for GetParametersByPath)"
+        },
+        {
+            "name": "withDecryption",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether to decrypt SecureString parameters"
+        },
+        {
+            "name": "overwrite",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether to overwrite an existing parameter (for PutParameter)"
+        }
+    ],
+    "output": [
+        {
+            "name": "success",
+            "type": "boolean",
+            "description": "Whether the operation was successful"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the operation failed"
+        },
+        {
+            "name": "result",
+            "type": "any",
+            "description": "The result of the operation"
+        }
+    ]
+}

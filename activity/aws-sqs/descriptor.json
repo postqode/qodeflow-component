@@ -1,0 +1,85 @@
+{
+    "name": "qodeflow-awssqs",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "AWS SQS",
+    "description": "Performs queue operations in AWS SQS",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/aws-sqs",
+    "settings": [
+        {
+            "name": "region",
+            "type": "string",
+            "required": true,
+            "description": "The AWS region"
+        },
+        {
+            "name": "accessKeyID",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Access Key ID"
+        },
+        {
+            "name": "secretAccessKey",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Secret Access Key"
+        },
+        {
+            "name": "sessionToken",
+            "type": "string",
+            "required": false,
+            "description": "The AWS Session Token"
+        }
+    ],
+    "input": [
+        {
+            "name": "method",
+            "type": "string",
+            "required": true,
+            "description": "The SQS operation to perform (SendMessage, ReceiveMessage, DeleteMessage, ListQueues)"
+        },
+        {
+            "name": "queueURL",
+            "type": "string",
+            "required": false,
+            "description": "The URL of the SQS queue"
+        },
+        {
+            "name": "messageBody",
+            "type": "string",
+            "description": "The body of the message to send"
+        },
+        {
+            "name": "receiptHandle",
+            "type": "string",
+            "description": "The receipt handle of the message to delete"
+        },
+        {
+            "name": "maxNumberOfMessages",
+            "type": "integer",
+            "description": "Maximum number of messages to receive (1 to 10)"
+        },
+        {
+            "name": "waitTimeSeconds",
+            "type": "integer",
+            "description": "The duration (in seconds) for which the call waits for a message to arrive"
+        }
+    ],
+    "output": [
+        {
+            "name": "success",
+            "type": "boolean",
+            "description": "Whether the operation was successful"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the operation failed"
+        },
+        {
+            "name": "result",
+            "type": "any",
+            "description": "The result of the operation"
+        }
+    ]
+}

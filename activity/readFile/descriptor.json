@@ -1,0 +1,45 @@
+{
+    "name": "qodeflow-readfile",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "Read File",
+    "description": "Performs file system operations such as reading file content, checking file existence, listing directory contents, and getting file info",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/readFile",
+    "input": [
+        {
+            "name": "method",
+            "type": "string",
+            "required": true,
+            "description": "The file operation to perform (ReadFile, FileExists, ListDirectory, GetFileInfo)"
+        },
+        {
+            "name": "filePath",
+            "type": "string",
+            "required": true,
+            "description": "The path to the file or directory"
+        },
+        {
+            "name": "encoding",
+            "type": "string",
+            "required": false,
+            "description": "The file encoding to use when reading (default: utf-8)"
+        }
+    ],
+    "output": [
+        {
+            "name": "success",
+            "type": "boolean",
+            "description": "Whether the operation was successful"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the operation failed"
+        },
+        {
+            "name": "result",
+            "type": "any",
+            "description": "The result of the operation"
+        }
+    ]
+}

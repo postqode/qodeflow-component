@@ -1,0 +1,45 @@
+{
+    "name": "qodeflow-writefile",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "Write File",
+    "description": "Performs file system write operations such as writing content to a file, appending content, deleting files, and creating directories",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/writeFile",
+    "input": [
+        {
+            "name": "method",
+            "type": "string",
+            "required": true,
+            "description": "The file operation to perform (WriteFile, AppendFile, DeleteFile, CreateDirectory)"
+        },
+        {
+            "name": "filePath",
+            "type": "string",
+            "required": true,
+            "description": "The path to the file or directory"
+        },
+        {
+            "name": "content",
+            "type": "any",
+            "required": false,
+            "description": "The content to write or append to the file"
+        }
+    ],
+    "output": [
+        {
+            "name": "success",
+            "type": "boolean",
+            "description": "Whether the operation was successful"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the operation failed"
+        },
+        {
+            "name": "result",
+            "type": "any",
+            "description": "The result of the operation"
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+{
+    "name": "qodeflow-downloadfile",
+    "type": "qodeflow:activity",
+    "version": "0.1.0",
+    "title": "Download File",
+    "description": "Downloads a file from a specified URL and saves it to a local file path",
+    "homepage": "https://github.com/postqode/qodeflow-component/tree/main/activity/downloadFile",
+    "input": [
+        {
+            "name": "url",
+            "type": "string",
+            "required": true,
+            "description": "The URL of the file to download"
+        },
+        {
+            "name": "destination",
+            "type": "string",
+            "required": true,
+            "description": "The local file path or directory to save the downloaded file. If a directory is provided, the original filename from the URL will be used."
+        },
+        {
+            "name": "method",
+            "type": "string",
+            "required": false,
+            "description": "The HTTP method to use for the download request (default: GET)"
+        },
+        {
+            "name": "headers",
+            "type": "any",
+            "required": false,
+            "description": "Custom HTTP headers to include in the request as an object/map"
+        },
+        {
+            "name": "timeout",
+            "type": "integer",
+            "required": false,
+            "description": "Timeout in seconds for the download operation"
+        },
+        {
+            "name": "append",
+            "type": "boolean",
+            "required": false,
+            "description": "If true, appends to existing file. If false (default), overwrites existing file by deleting and recreating it."
+        }
+    ],
+    "output": [
+        {
+            "name": "success",
+            "type": "boolean",
+            "description": "Whether the download was successful"
+        },
+        {
+            "name": "error",
+            "type": "string",
+            "description": "Error message if the download failed"
+        },
+        {
+            "name": "result",
+            "type": "any",
+            "description": "The result of the operation containing filePath and size in bytes"
+        }
+    ]
+}
